@@ -1,6 +1,7 @@
 import gzip
 import json
 import os
+import re
 import shutil
 import time
 
@@ -32,7 +33,12 @@ p = get_page(BASE_URL)
 soup = BeautifulSoup(p.text, "html.parser")
 
 # get the most current report
-current_year_url = soup.find("a", id="latest").parent.find_next_sibling().find('a',href=True).get('href')
+current_year_url = (
+    soup.find("a", id="latest")
+    .parent.find_next_sibling()
+    .find("a", href=True)
+    .get("href")
+)
 
 p = get_page(f"{current_year_url}")
 
@@ -62,7 +68,12 @@ for country in urls:
     report = soup.find("div", class_="report__content")
 
     summary = "\n\n".join(
-        [x.text for x in report.find("h2", text="Executive Summary").parent.find_all("p")]
+        [
+            x.text
+            for x in report.find(
+                "h2", string=re.compile(r"Executive Summary", re.I)
+            ).parent.find_all("p")
+        ]
     )
 
     OUT[country_name] = {"name": country_name, "summary": summary, "url": country}
