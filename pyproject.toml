@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "religious_freedom"
+version = "0.1.0"
+description = ""
+authors = ["Christopher Pickering"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.28.1"
+bs4 = "^0.0.1"
+importlib-metadata = "^6.0.0"
+
+[tool.poetry.dev-dependencies]
+tox = "^4.0.2"
+
+[tool.poetry.group.dev.dependencies]
+typing-extensions = "^4.4.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+max_line_length = 99
+quiet = true
+
+[tool.isort]
+profile = "black"
+quiet = true
