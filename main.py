@@ -10,11 +10,13 @@ from bs4 import BeautifulSoup
 
 
 def get_page(url):
-
+    HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15"
+    }
     retries = 1
     while retries < 5:
         try:
-            return requests.get(url, timeout=30)
+            return requests.get(url, timeout=30, headers=HEADERS)
         except Exception as e:
             wait = retries * 5
             print(f"Error! Waiting {wait} secs and re-trying {url}...")
