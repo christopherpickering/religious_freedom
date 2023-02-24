@@ -19,7 +19,7 @@ def get_page(url):
             return requests.get(url, timeout=30, headers=HEADERS)
         except Exception as e:
             wait = retries * 5
-            print(f"Error! Waiting {wait} secs and re-trying {url}...")
+            print(f"Error! Waiting {wait} secs and re-trying {url}...\n{e}")
             time.sleep(wait)
             retries += 1
 
@@ -65,7 +65,12 @@ for country in urls:
     d = get_page(country)
 
     soup = BeautifulSoup(d.text, "html.parser")
-    country_name = soup.find("title").string.split("-")[0].strip()
+
+    country_name = (
+        soup.find("select", class_="chosen-container--country")
+        .find("option", selected=True)
+        .string
+    )
 
     report = soup.find("div", class_="report__content")
 
