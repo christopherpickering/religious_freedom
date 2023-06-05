@@ -74,14 +74,21 @@ for country in urls:
 
     report = soup.find("div", class_="report__content")
 
-    summary = "\n\n".join(
-        [
-            x.text
-            for x in report.find(
+    summaryHeading = report.find(
                 "h2", string=re.compile(r"Executive Summary", re.I)
-            ).parent.find_all("p")
-        ]
-    )
+            )
+
+    summary = ""
+
+    if summaryHeading:
+        summary = "\n\n".join(
+            [
+                x.text
+                for x in report.find(
+                    "h2", string=re.compile(r"Executive Summary", re.I)
+                ).parent.find_all("p")
+            ]
+        )
 
     OUT[country_name] = {"name": country_name, "summary": summary, "url": country}
 
