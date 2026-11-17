@@ -10,8 +10,8 @@ Converts the [USA Department of State Religious Freedom Reports](https://www.sta
 ## Building your own file
 
 * clone this repository
-* install deps with `poetry install`
-* run `poetry run python main.py`
+* install deps with `pip install -r requirements.txt`
+* run `python main.py`
 
 A json file called `data.json` will appear.
 
